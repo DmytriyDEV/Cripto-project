@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href=""> -->
+    <title>Document</title>
+    <style>
+        .top-cripta {
+            display: flex;
+            justify-content: space-between;
+        }
+        .price {
+            margin-top: 40px;
+        }
+        .language {
+            position: fixed;
+            top: 10px;
+            left: 45%;
+        }
+        .data-div {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-hostory {
+            margin-top: 30px;
+        }
+        .error {
+            border: 2px solid red;
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            left: calc(50% - 100px);
+            display: flex;
+            justify-content: center;
+            align-items:center;
+        }
+        .thema-div {
+            position: absolute;
+            top: 100px;
+            left: calc(50% - 100px);    
+            display: flex;
+            
+        }
+        .shadow {
+            box-shadow: 0px 0px 20px red;
+        }
+      
+        
+       
+    </style>
+</head>
+<body>
+    <!-- <input type="text" class="test"> -->
+    <div class="thema-div">
+        <button class="thema1">black</button>
+        <button class="thema2">white</button>
+        <button class="thema3">green</button>
+    </div>
+    <select class="language">
+
+    </select>
+    <div class="top-cripta">
+        <h2></h2>
+        <img/>
+    </div>
+    <div class="description">
+
+    </div>
+    <div class="price">
+
+    </div>
+    <select class="desc">
+        
+    </select>
+<hr>
+<div class="data-div">
+    <div class="contData">
+        <span>from</span>
+        <input class="data1" type="date"/>
+    </div>
+    <button class="clear">clear</button>
+    <div class="contData">
+        <span>to</span>
+        <input class="data2" type="date"/>
+    </div>
+</div>
+<button class="btn-hostory">search</button>
+
+
+
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <!-- library -->
+  <!-- <script src="./thisOld.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- my script -->
+    <script src="description.js"></script>
+</body>
+</html>
