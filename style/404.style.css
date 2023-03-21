@@ -1,0 +1,28 @@
+* {
+    color : white;
+}
+.contentBody { 
+    flex-direction: column;
+    text-align: center;
+}
+
+.c_buttons {
+    margin-top: 30px;
+}
+button {
+        color: white;
+        background: #696969;
+        /* height: 36px; */
+        padding: 15px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        cursor:pointer;
+        margin: 0 10px;
+        
+    }
+    button:active {
+        filter: blur(1px);
+    }
+    button:hover {
+        
+        background: #7d7d7d;
+    }

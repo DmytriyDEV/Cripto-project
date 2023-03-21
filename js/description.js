@@ -23,15 +23,15 @@ const language = document.querySelector(".language");
 const desc = document.querySelector(".desc");
 const btnClear = document.querySelector(".clear");
 const myChartID = document.querySelector(".myChart");
+const bodyError = document.querySelector(".bodyError");
+const contentBody = document.querySelector(".contentBody");
 
 const local = JSON.parse(localStorage.getItem("obj"));
 const objDate = local === null ? {} : local;
 const valut = objDate.valute ? objDate.valute : "usd";
 
 let coinData = {};
-// {} === {}
 const paint = (obj) => {
-  // print name foto description
 
   h2.textContent = obj.localization.en;
   img.src = obj.image.large;
@@ -63,7 +63,6 @@ const paint = (obj) => {
 const getCoin = () => {
   return fetch(coinApi)
     .then((response) => {
-      console.log(response);
       if (response.ok === false) return new Promise.reject(response)
       return response.json();
     })
@@ -76,11 +75,8 @@ const getCoin = () => {
      let errors = ""
      switch (status) {
       case 404: errors = 'coins not found in Coin geco'; break;
-
       default : errors = 'coins not found in Coin geco'
      }
-      // console.log(JSON.stringify(response));
-      // open('./404.html')
       location.replace('./404.html?error=' + errors)
       
     })
@@ -94,7 +90,6 @@ const optionValutes = (obj) => {
     desc.append(opt);
   }
   desc.value = valut;
-  // desc.value = local === null ? 'usd': objDate.valute
 };
 
 language.onchange = () => {
@@ -118,12 +113,10 @@ const start = () => {
 
 start();
 
-// https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=USD&days=30
 
 const btnHostory = document.querySelector(".btn-hostory");
 const data1 = document.querySelector(".data1");
 const data2 = document.querySelector(".data2");
-const dataDiv = document.querySelector(".data-div");
 
 data1.onchange = () => {
   objDate["val1"] = data1.value;
@@ -142,7 +135,7 @@ const dataError = (str) => {
   const error = document.createElement("div");
   error.classList.add("error");
   error.textContent = str;
-  dataDiv.append(error);
+  bodyError.append(error);
   setTimeout(() => {
     error.remove();
   }, 2000);
@@ -208,12 +201,10 @@ function CreatGraficData() {
   const color = ["green", "yellow", "black", "red", "rgb(75, 192, 192)"];
 
   this.creat = function creat(data, prices) {
-    // methood arrayData arrayPrices
     chart = new Chart(ctx, {
-      // class element end object
       type: "line",
       data: {
-        labels: data, // ['12.01','12.02','12.03','12.04','12.05','12.06','12.07','12.08','12.09','12.01','12.02','12.03','12.04','12.05','12.06','12.07','12.08','12.09'],// data,
+        labels: data,
         datasets: [
           {
             label: desc.value,
@@ -311,12 +302,12 @@ const funStartCrafic = () => {
 
   if (data1.value.length === 0 || data2.value.length === 0) {
     // error
-    return; // dataError("Error! empty date");//about error
+    return dataError("Error! empty date");//about error
   } else if (data1.value > data2.value) {
     // inp1 > inp2 error
-    return; // dataError("start data is ancorrect");
+    return dataError("start data is ancorrect");
   } else if (+res1 > data || +res2 > data) {
-    return; // dataError("incorect date");
+    return dataError("incorect date");
   }
 
   historyFetch(days + 1);
@@ -325,7 +316,7 @@ funStartCrafic();
 
 const thema1 = document.querySelector(".thema1");
 const thema2 = document.querySelector(".thema2");
-const thema3 = document.querySelector(".thema3");
+// const thema3 = document.querySelector(".thema3");
 
 const colorFromLocal = JSON.parse(localStorage.getItem("thema"));
 
@@ -335,26 +326,24 @@ const thems = [
   {
     name: "black",
     text: "white",
-    body: "black",
-    button: "red",
+    body: "rgba(30, 30, 30, 0.76)",
+    button: "rgb(225, 225, 225)",
   },
   {
     name: "white",
     text: "black",
-    body: "white",
-    button: "green",
-  },
-  {
-    name: "green",
-    text: "yellow",
-    body: "green",
-    button: "blue",
-  },
+    body: "rgba(255, 255, 255, 0.555)",
+    button: "rgb(38, 38, 38)",
+  }
 ];
 
 const paintThema = (obj) => {
-  document.body.style.background = obj.body;
-  document.body.style.color = obj.text;
+  // myChart.defaults.color = obj.text
+  // chart.update();
+  contentBody.style.background = obj.body;
+  document.body.style.setProperty('--primary--color-light-text', obj.button)
+  document.body.style.setProperty('--primary-color-text', obj.text)
+  // document.body.style.color = obj.text;
 };
 
 const removeshadow = () => {
@@ -380,27 +369,33 @@ thema2.onclick = (e) => {
   paintThema(findThem2);
 };
 
-thema3.onclick = (e) => {
-  const findThem3 = thems.find((el) => el.name === thema3.textContent);
-  removeshadow();
-  e.target.classList.add("shadow");
+// thema3.onclick = (e) => {
+//   const findThem3 = thems.find((el) => el.name === thema3.textContent);
+//   removeshadow();
+//   e.target.classList.add("shadow");
 
-  localStorage.setItem("thema", JSON.stringify(findThem3));
-  paintThema(findThem3);
-};
+//   localStorage.setItem("thema", JSON.stringify(findThem3));
+//   paintThema(findThem3);
+// };
 
 const fn = () => {
-  
+  // myChart.defaults.color = 'white'
+  // chart.update();
+  if(!localObj.name) return
   switch(localObj.name){
     case 'black': thema1.classList.add('shadow')
-      break;
-    case 'green': thema3.classList.add('shadow')
-      break;  
+    break;
+    // case 'green': thema3.classList.add('shadow')
+    //   break;  
     default : thema2.classList.add("shadow");
   }
-
-  document.body.style.background = localObj.body;
-  document.body.style.color = localObj.text;
+  
+  // myChart.defaults.color = localObj.text
+  // chart.update();
+  contentBody.style.background = localObj.body;
+  document.body.style.setProperty('--primary--color-light-text', localObj.button)
+  document.body.style.setProperty('--primary-color-text', localObj.text)
+  // document.body.style.color = localObj.text;
 };
 
 fn();

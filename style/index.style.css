@@ -1,0 +1,130 @@
+/* header */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #8d8d8d;
+  height: 70px;
+  background: #413f3e88;
+}
+header select {
+  border: 2px solid #696969;
+  color: white;
+  padding: 10px;
+  width: 95%;
+  max-width: 400px;
+}
+header select option {
+  background: #696969;
+  color: white;
+}
+
+/* main */
+main {
+    height: calc(100vh - 120px);
+    overflow: auto;
+    display: flex;
+}
+main::-webkit-scrollbar {
+    width: 10px;
+  }
+  main::-webkit-scrollbar-button {
+    height: 2px;
+    background: #b4b4b4;
+  }
+main::-webkit-scrollbar-thumb {
+    background: #b4b4b4;
+    border-radius: 10px;
+  }
+.coins {
+    padding: 10px 0 0 0;
+    
+    height: calc(100vh - 160px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+    width: 96%;
+    margin: 20px 0;
+    gap: 20px;
+
+}
+
+.elem {
+    padding: 15px;
+    position: relative;
+    background: #413f3e88;
+    width: 195px;
+    height: 140px; 
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    border-radius: 7px;
+    transition: .5;
+}
+.elem.loading {
+    /* background:#413f3e88; */
+    filter: blur(6px);
+}
+.elem p {
+   color: rgb(225, 225, 225);
+}
+.elem a {
+   color: rgb(225, 225, 225);
+   padding: 6px 0;
+   width: 100%;
+   border-radius: 7px;
+   background: #696969;
+}
+.update {
+    cursor: pointer;
+    width: 20px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+/* themes */
+.themes {
+    background: #696969;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding-left: 10px;
+}
+.themes select{
+    color: white;
+    
+}
+.themes select option{
+    color: black;
+}
+.themes button {
+    background: #413f3e88;
+    height: 100%;
+    padding: 10px;
+}
+
+.themes button:active {
+    filter: blur(1px);
+}
+.clear {
+    color: white;
+    background: #696969;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    height: 36px;
+    padding: 0 10px;
+}
+.clear:active {
+    filter: blur(1px);
+}
+
+
+

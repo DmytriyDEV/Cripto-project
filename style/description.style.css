@@ -1,0 +1,153 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* color: rgb(38, 38, 38) !important; */
+}
+
+.contentBody {
+ position: relative;
+  overflow: auto;
+  justify-content: flex-start;
+  scroll-behavior: smooth;
+  padding-top: 40px;
+}
+.contentBody::-webkit-scrollbar {
+  width: 4px;
+}
+
+.contentBody::-webkit-scrollbar-thumb {
+  background: #b4b4b4;
+  border-radius: 10px;
+}
+.current_cripto {
+  margin-top: 10px;
+  width: 95%;
+  max-width: 400px;
+}
+
+.top-cripta h2 {
+ 
+  color: var(--primary-color-text);
+  text-align: center;
+}
+.top-cripta img {
+  margin: 20px 0;
+  max-width: 250px;
+  width: 95%;
+}
+.description {
+  color: var(--primary--color-light-text);
+  text-align: center;
+}
+.description a {
+  color: var(--primary-color-text);
+  font-weight: 800;
+}
+.price {
+    color: white;
+}
+.containerPrice {
+  padding: 10px;
+  margin: 10px 0;
+  display: flex;
+  color: var(--primary-color-text);
+  background: #413f3e88;
+  justify-content: space-between;
+  width: 100%;
+}
+.containerPrice select {
+  color: white;
+  background: #696969;
+  height: 36px;
+  padding: 10px;
+}
+/* schedool */
+.data-div {
+    /* center */
+  width: 95%;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.contData {
+}
+.contData span {
+  color: var(--primary--color-light-text);
+  font-weight: 700;
+  margin: 10px 0;
+}
+.contData input {
+    border: 2px solid #696969;
+    color: white;
+    padding: 10px;
+}
+.contData input::-webkit-calendar-picker-indicator {
+    background-image: url('../img/date.png');
+    /* background-color: #f00; */
+    width: 20px;
+    height: 20px;
+}
+
+.btn-hostory {
+  color: white;
+  background: #696969;
+  padding: 10px;
+  width: 94%;
+  max-width: 350px;
+  margin: 20px 0;
+}
+.btn-hostory:active {
+  filter: blur(1px);
+}
+/* clear */
+.clear {
+  color: white;
+  background: #696969;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  height: 36px;
+  padding: 0 10px;
+}
+.clear:active {
+  filter: blur(1px);
+}
+/* language */
+.language {
+  color:white;
+  background: #696969;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  height: 36px;
+  padding: 0 10px;
+}
+
+/* c_chart */
+.c_chart {
+    width: 96%;
+    padding-bottom: 60px;
+}
+#myChart {
+    width: 100%;
+    max-width: 800px;
+    color: var(--primary-color-text);
+}
+
+
+/* thema-div */
+.thema-div {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.thema-div button{
+    color:white;
+    background: #696969;
+    padding: 10px;
+    margin: 5px;
+}
+
+.thema-div button.shadow{
+    box-shadow: 0px 0px 3px white;
+}
