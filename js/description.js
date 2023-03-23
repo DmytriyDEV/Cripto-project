@@ -26,13 +26,60 @@ const myChartID = document.querySelector(".myChart");
 const bodyError = document.querySelector(".bodyError");
 const contentBody = document.querySelector(".contentBody");
 
+const btnHostory = document.querySelector(".btn-hostory");
+const data1 = document.querySelector(".data1");
+const data2 = document.querySelector(".data2");
+
 const local = JSON.parse(localStorage.getItem("obj"));
 const objDate = local === null ? {} : local;
 const valut = objDate.valute ? objDate.valute : "usd";
 
-let coinData = {};
-const paint = (obj) => {
+const thema1 = document.querySelector(".thema1");
+const thema2 = document.querySelector(".thema2");
 
+const colorFromLocal = JSON.parse(localStorage.getItem("thema"));
+
+const localObj = colorFromLocal === null ? {} : colorFromLocal;
+
+const thems = [
+  {
+    name: "black",
+    text: "white",
+    body: "rgba(30, 30, 30, 0.76)",
+    button: "rgb(225, 225, 225)",
+  },
+  {
+    name: "white",
+    text: "black",
+    body: "rgba(255, 255, 255, 0.555)",
+    button: "rgb(38, 38, 38)",
+  },
+];
+
+let coinData = {};
+
+// Function
+const fn = () => {
+  if (!localObj.name) return;
+
+  switch (localObj.name) {
+    case "black":
+      thema1.classList.add("shadow");
+      break;
+    // case 'green': thema3.classList.add('shadow')
+    //   break;
+    default:
+      thema2.classList.add("shadow");
+  }
+  contentBody.style.background = localObj.body;
+  document.body.style.setProperty(
+    "--primary--color-light-text",
+    localObj.button
+  );
+  document.body.style.setProperty("--primary-color-text", localObj.text);
+};
+
+const paint = (obj) => {
   h2.textContent = obj.localization.en;
   img.src = obj.image.large;
 
@@ -44,7 +91,6 @@ const paint = (obj) => {
 
   price.textContent =
     valut.toUpperCase() + obj.market_data.current_price[valut];
-  // create option for language
 
   let isRemoveSelect = true;
 
@@ -63,7 +109,7 @@ const paint = (obj) => {
 const getCoin = () => {
   return fetch(coinApi)
     .then((response) => {
-      if (response.ok === false) return new Promise.reject(response)
+      if (response.ok === false) return new Promise.reject(response);
       return response.json();
     })
     .then((data) => {
@@ -71,15 +117,17 @@ const getCoin = () => {
       coinData = data;
       optionValutes(data);
     })
-    .catch((status)=>{
-     let errors = ""
-     switch (status) {
-      case 404: errors = 'coins not found in Coin geco'; break;
-      default : errors = 'coins not found in Coin geco'
-     }
-      location.replace('./404.html?error=' + errors)
-      
-    })
+    .catch((status) => {
+      let errors = "";
+      switch (status) {
+        case 404:
+          errors = "coins not found in Coin geco";
+          break;
+        default:
+          errors = "coins not found in Coin geco";
+      }
+      location.replace("./404.html?error=" + errors);
+    });
 };
 
 const optionValutes = (obj) => {
@@ -92,44 +140,16 @@ const optionValutes = (obj) => {
   desc.value = valut;
 };
 
-language.onchange = () => {
-  const val = language.value;
-
-  h2.textContent = coinData.localization[val];
-  description.innerHTML = coinData.description[val];
+const paintThema = (obj) => {
+  contentBody.style.background = obj.body;
+  document.body.style.setProperty("--primary--color-light-text", obj.button);
+  document.body.style.setProperty("--primary-color-text", obj.text);
 };
 
-desc.onchange = () => {
-  const prCoin = desc.value;
-  objDate["valute"] = prCoin;
-  localStorage.setItem("obj", JSON.stringify(objDate));
-  price.textContent =
-    prCoin.toUpperCase() + ": " + coinData.market_data.current_price[prCoin];
+const removeshadow = () => {
+  const a = document.querySelector(".shadow");
+  a.classList.remove("shadow");
 };
-
-const start = () => {
-  getCoin();
-};
-
-start();
-
-
-const btnHostory = document.querySelector(".btn-hostory");
-const data1 = document.querySelector(".data1");
-const data2 = document.querySelector(".data2");
-
-data1.onchange = () => {
-  objDate["val1"] = data1.value;
-  localStorage.setItem("obj", JSON.stringify(objDate));
-};
-
-data2.onchange = () => {
-  objDate["val2"] = data2.value;
-  localStorage.setItem("obj", JSON.stringify(objDate));
-};
-
-data1.value = objDate.val1;
-data2.value = objDate.val2;
 
 const dataError = (str) => {
   const error = document.createElement("div");
@@ -156,32 +176,10 @@ const historyFetch = (days) => {
       return response.json();
     })
     .then((data) => {
-      // console.log(data);
       creatGrafic(data);
     });
 };
 
-btnHostory.onclick = () => {
-  const val1 = data1.value;
-  const val2 = data2.value;
-
-  const res1 = val1.split("-").join("");
-  const res2 = val2.split("-").join("");
-
-  const days = Math.abs(res1 - res2);
-
-  if (data1.value.length === 0 || data2.value.length === 0) {
-    return dataError("Error! empty date");
-  } else if (data1.value > data2.value) {
-    return dataError("start data is ancorrect");
-  } else if (+res1 > data || +res2 > data) {
-    return dataError("incorect date");
-  }
-
-  historyFetch(days + 1);
-};
-
-// hw - diag
 function format(unix) {
   const date = new Date(unix + new Date().getTimezoneOffset() * 60000); //
 
@@ -192,17 +190,16 @@ function format(unix) {
   return `${year}-${month}-${day}`;
 }
 
-// chart
-
 function CreatGraficData() {
   let chart = null;
   let dataV = "";
   let priceCoin = "";
   const color = ["green", "yellow", "black", "red", "rgb(75, 192, 192)"];
-
   this.creat = function creat(data, prices) {
+    btnClear.disabled = false;
     chart = new Chart(ctx, {
       type: "line",
+
       data: {
         labels: data,
         datasets: [
@@ -216,8 +213,16 @@ function CreatGraficData() {
       },
       options: {
         scales: {
+          x: {
+            ticks: {
+              color: "white",
+            },
+          },
           y: {
             beginAtZero: true,
+            ticks: {
+              color: "white",
+            },
           },
         },
       },
@@ -228,8 +233,7 @@ function CreatGraficData() {
   };
 
   this.changeDate = function (data, price) {
-    // mthood dataArray
-    chart.data.labels = data; //change array labels
+    chart.data.labels = data;
     chart.data.datasets = [
       {
         label: desc.value,
@@ -237,15 +241,12 @@ function CreatGraficData() {
         borderWidth: 1,
         borderColor: color.pop(),
       },
-    ]; //change array labels
-    chart.update(); //udate grafix
+    ];
+    chart.update();
   };
 
   this.changePrices = function (price) {
-    // meth\ priceArray
-
     chart.data.datasets.push({
-      // push in arrayDatasets  object with keys
       label: desc.value,
       data: price,
       borderWidth: 1,
@@ -254,7 +255,6 @@ function CreatGraficData() {
     chart.update(); // udate crafix
   };
   this.switchFuncion = function (data, prices) {
-    // method have two arrays
     if (chart === null) return this.creat(data, prices); // if chart dont fix start mthood creat
 
     let newDataV = data1.value + data2.value; // values from inputs data
@@ -271,13 +271,14 @@ function CreatGraficData() {
     }
   };
   this.remove = function () {
+    localStorage.removeItem("obj");
     chart.clear();
+    btnClear.disabled = true;
     chart.destroy();
     chart = null;
+    ctx.style.height = "1px";
   };
 }
-
-const myChart = new CreatGraficData();
 
 const creatGrafic = (data) => {
   const dataArray = [];
@@ -302,7 +303,7 @@ const funStartCrafic = () => {
 
   if (data1.value.length === 0 || data2.value.length === 0) {
     // error
-    return dataError("Error! empty date");//about error
+    return dataError("Error! empty date"); //about error
   } else if (data1.value > data2.value) {
     // inp1 > inp2 error
     return dataError("start data is ancorrect");
@@ -312,44 +313,58 @@ const funStartCrafic = () => {
 
   historyFetch(days + 1);
 };
-funStartCrafic();
 
-const thema1 = document.querySelector(".thema1");
-const thema2 = document.querySelector(".thema2");
-// const thema3 = document.querySelector(".thema3");
 
-const colorFromLocal = JSON.parse(localStorage.getItem("thema"));
 
-const localObj = colorFromLocal === null ? {} : colorFromLocal;
+const myChart = new CreatGraficData();
+//Events
 
-const thems = [
-  {
-    name: "black",
-    text: "white",
-    body: "rgba(30, 30, 30, 0.76)",
-    button: "rgb(225, 225, 225)",
-  },
-  {
-    name: "white",
-    text: "black",
-    body: "rgba(255, 255, 255, 0.555)",
-    button: "rgb(38, 38, 38)",
+language.onchange = () => {
+  const val = language.value;
+
+  h2.textContent = coinData.localization[val];
+  description.innerHTML = coinData.description[val];
+};
+
+desc.onchange = () => {
+  const prCoin = desc.value;
+  objDate["valute"] = prCoin;
+  localStorage.setItem("obj", JSON.stringify(objDate));
+  price.textContent =
+    prCoin.toUpperCase() + ": " + coinData.market_data.current_price[prCoin];
+};
+
+data1.onchange = () => {
+  objDate["val1"] = data1.value;
+  localStorage.setItem("obj", JSON.stringify(objDate));
+};
+
+data2.onchange = () => {
+  objDate["val2"] = data2.value;
+  localStorage.setItem("obj", JSON.stringify(objDate));
+};
+
+btnHostory.onclick = () => {
+  const val1 = data1.value;
+  const val2 = data2.value;
+
+  const res1 = val1.split("-").join("");
+  const res2 = val2.split("-").join("");
+
+  const days = Math.abs(res1 - res2);
+
+  if (data1.value.length === 0 || data2.value.length === 0) {
+    return dataError("Error! empty date");
+  } else if (data1.value > data2.value) {
+    return dataError("start data is ancorrect");
+  } else if (+res1 > data || +res2 > data) {
+    return dataError("incorect date");
   }
-];
-
-const paintThema = (obj) => {
-  // myChart.defaults.color = obj.text
-  // chart.update();
-  contentBody.style.background = obj.body;
-  document.body.style.setProperty('--primary--color-light-text', obj.button)
-  document.body.style.setProperty('--primary-color-text', obj.text)
-  // document.body.style.color = obj.text;
+  ctx.style.height = "200px";
+  historyFetch(days + 1);
 };
 
-const removeshadow = () => {
-  const a = document.querySelector(".shadow");
-  a.classList.remove("shadow");
-};
+btnClear.onclick = () => myChart.remove();
 
 thema1.onclick = (e) => {
   const findThem1 = thems.find((el) => el.name === thema1.textContent);
@@ -369,38 +384,15 @@ thema2.onclick = (e) => {
   paintThema(findThem2);
 };
 
-// thema3.onclick = (e) => {
-//   const findThem3 = thems.find((el) => el.name === thema3.textContent);
-//   removeshadow();
-//   e.target.classList.add("shadow");
-
-//   localStorage.setItem("thema", JSON.stringify(findThem3));
-//   paintThema(findThem3);
-// };
-
-const fn = () => {
-  // myChart.defaults.color = 'white'
-  // chart.update();
-  if(!localObj.name) return
-  switch(localObj.name){
-    case 'black': thema1.classList.add('shadow')
-    break;
-    // case 'green': thema3.classList.add('shadow')
-    //   break;  
-    default : thema2.classList.add("shadow");
-  }
+const start = () => {
+  data1.value = objDate.val1;
+  data2.value = objDate.val2;
   
-  // myChart.defaults.color = localObj.text
-  // chart.update();
-  contentBody.style.background = localObj.body;
-  document.body.style.setProperty('--primary--color-light-text', localObj.button)
-  document.body.style.setProperty('--primary-color-text', localObj.text)
-  // document.body.style.color = localObj.text;
+  getCoin();
+  fn();
+
+  local && funStartCrafic();
+
 };
 
-fn();
-
-
-
-// http://127.0.0.1:5500/cripto/description.html?id=0xdao-v2ad
-// http://127.0.0.1:5500/cripto/description.html?id=0xdao-v2
+start();

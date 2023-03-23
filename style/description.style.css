@@ -151,3 +151,17 @@
 .thema-div button.shadow{
     box-shadow: 0px 0px 3px white;
 }
+
+@media screen and (max-width : 340px) {
+  .data-div{
+    justify-content: center;
+
+  }
+  .contData  {
+  width: 100%;
+  }
+  .contData input  {
+    width: 100%;
+
+  }
+}

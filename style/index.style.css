@@ -10,14 +10,14 @@ header {
 }
 header select {
   border: 2px solid #696969;
-  color: white;
+  color: var(--primary-color-text);
   padding: 10px;
   width: 95%;
   max-width: 400px;
 }
 header select option {
   background: #696969;
-  color: white;
+  color: var(--primary-color-text);
 }
 
 /* main */
@@ -57,7 +57,7 @@ main::-webkit-scrollbar-thumb {
     background: #413f3e88;
     width: 195px;
     height: 140px; 
-    color: white;
+    color: var(--primary-color-text);
     font-family: Verdana, Geneva, Tahoma, sans-serif; 
     display: flex; 
     flex-direction: column;
@@ -72,10 +72,10 @@ main::-webkit-scrollbar-thumb {
     filter: blur(6px);
 }
 .elem p {
-   color: rgb(225, 225, 225);
+    color: var(--primary--color-light-text);
 }
 .elem a {
-   color: rgb(225, 225, 225);
+   color: var(--primary--color-light-text);
    padding: 6px 0;
    width: 100%;
    border-radius: 7px;
@@ -98,7 +98,7 @@ main::-webkit-scrollbar-thumb {
     padding-left: 10px;
 }
 .themes select{
-    color: white;
+    color: var(--primary-color-text);
     
 }
 .themes select option{
@@ -114,7 +114,7 @@ main::-webkit-scrollbar-thumb {
     filter: blur(1px);
 }
 .clear {
-    color: white;
+    color: var(--primary-color-text);
     background: #696969;
     position: fixed;
     bottom: 10px;
