@@ -4,7 +4,7 @@
 }
 
 .contentBody {
- position: relative;
+  position: relative;
   overflow: auto;
   justify-content: flex-start;
   scroll-behavior: smooth;
@@ -25,7 +25,6 @@
 }
 
 .top-cripta h2 {
- 
   color: var(--primary-color-text);
   text-align: center;
 }
@@ -43,7 +42,7 @@
   font-weight: 800;
 }
 .price {
-    color: white;
+  color: white;
 }
 .containerPrice {
   padding: 10px;
@@ -62,7 +61,7 @@
 }
 /* schedool */
 .data-div {
-    /* center */
+  /* center */
   width: 95%;
   max-width: 600px;
   display: flex;
@@ -77,15 +76,15 @@
   margin: 10px 0;
 }
 .contData input {
-    border: 2px solid #696969;
-    color: white;
-    padding: 10px;
+  border: 2px solid #696969;
+  color: white;
+  padding: 10px;
 }
 .contData input::-webkit-calendar-picker-indicator {
-    background-image: url('../img/date.png');
-    /* background-color: #f00; */
-    width: 20px;
-    height: 20px;
+  background-image: url("../img/date.png");
+  /* background-color: #f00; */
+  width: 20px;
+  height: 20px;
 }
 
 .btn-hostory {
@@ -114,7 +113,7 @@
 }
 /* language */
 .language {
-  color:white;
+  color: white;
   background: #696969;
   position: fixed;
   bottom: 10px;
@@ -125,43 +124,40 @@
 
 /* c_chart */
 .c_chart {
-    width: 96%;
-    padding-bottom: 60px;
+  width: 96%;
+  padding-bottom: 60px;
 }
 #myChart {
-    width: 100%;
-    max-width: 800px;
-    color: var(--primary-color-text);
+  width: 100%;
+  max-width: 800px;
+  color: var(--primary-color-text);
 }
-
 
 /* thema-div */
 .thema-div {
-    position: absolute;
-    left: 10px;
-    top: 10px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
-.thema-div button{
-    color:white;
-    background: #696969;
-    padding: 10px;
-    margin: 5px;
-}
-
-.thema-div button.shadow{
-    box-shadow: 0px 0px 3px white;
+.thema-div button {
+  color: white;
+  background: #696969;
+  padding: 10px;
+  margin: 5px;
 }
 
-@media screen and (max-width : 340px) {
-  .data-div{
+.thema-div button.shadow {
+  box-shadow: 0px 0px 3px white;
+}
+
+@media screen and (max-width: 340px) {
+  .data-div {
     justify-content: center;
-
   }
-  .contData  {
-  width: 100%;
-  }
-  .contData input  {
+  .contData {
     width: 100%;
-
+  }
+  .contData input {
+    width: 100%;
   }
 }

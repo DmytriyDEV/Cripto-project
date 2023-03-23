@@ -14,6 +14,7 @@ header select {
   padding: 10px;
   width: 95%;
   max-width: 400px;
+  z-index: 20;
 }
 header select option {
   background: #696969;
