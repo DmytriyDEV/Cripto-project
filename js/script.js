@@ -39,7 +39,8 @@ const localDate = JSON.parse(localStorage.getItem("coins"));
 const coins = localDate === null ? [] : localDate;
 
 const addCoinsInSelect = (arr) => {
-  arr.forEach((el) => {
+  arr.forEach((el,i) => {
+    if(i > 200) return;
     const option = document.createElement("option");
     option.textContent = el.name;
     option.value = el.id;
